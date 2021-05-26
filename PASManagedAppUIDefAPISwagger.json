@@ -1,0 +1,334 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "2018-08-14-preview",
+    "title": "Users Resource",
+    "description": "Azure Operations Management API reference for users created via custop providers"
+  },
+  "host": "management.azure.com",
+  "schemes": [
+    "https"
+  ],
+  "security": [
+  ],
+  "securityDefinitions": {
+  },
+  "paths": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CustomProviders/resourceproviders/{customrpname}/{siteOwnerName}/{siteName}": {
+      "put": {
+        "tags": [
+          "User"
+        ],
+        "operationId": "Sites_PUT",
+        "description": "Creates or updates a site resource",
+        "parameters": [
+          {
+            "$ref": "#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "name": "resourceGroupName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The name of the resource group. The name is case insensitive.",
+            "pattern": "^[-\\w\\._\\(\\)]+$",
+            "minLength": 1,
+            "maxLength": 90
+          },
+          {
+            "name": "siteOwnerName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The name of the site owner.",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          {
+            "name": "siteName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The name of the site.",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          {
+            "$ref": "#/parameters/ApiVersionParameter"
+          },
+          {
+            "name": "parameters",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SiteResource"
+            },
+            "description": "The user resource to create"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created response definition. Resource has been created",
+            "schema": {
+              "$ref": "#/definitions/SiteResource"
+            }
+          },
+          "200": {
+            "description": "OK response definition. Resource already exists and has not been changed",
+            "schema": {
+              "$ref": "#/definitions/SiteResource"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/CodeMessageError"
+            },
+            "description": "Error response definition."
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Site"
+        ],
+        "operationId": "Sites_DELETE",
+        "description": "Deletes a site resource",
+        "parameters": [
+          {
+            "$ref": "#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "name": "resourceGroupName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The name of the resource group. The name is case insensitive.",
+            "pattern": "^[-\\w\\._\\(\\)]+$",
+            "minLength": 1,
+            "maxLength": 90
+          },
+          {
+            "name": "siteownername",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The name of the site owner.",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          {
+            "name": "sitename",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The name of the site to delete",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          {
+            "$ref": "#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK response definition."
+          },
+          "204": {
+            "description": "OK resource was not found."
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/CodeMessageError"
+            },
+            "description": "Error response definition."
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      },
+      "get": {
+        "tags": [
+          "Site"
+        ],
+        "operationId": "Users_GET",
+        "description": "Gets a user resource",
+        "parameters": [
+          {
+            "$ref": "#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "name": "resourceGroupName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The name of the resource group. The name is case insensitive.",
+            "pattern": "^[-\\w\\._\\(\\)]+$",
+            "minLength": 1,
+            "maxLength": 90
+          },
+          {
+            "name": "siteownername",
+            "in": "path",
+            "required": false,
+            "type": "string",
+            "description": "The name of the site owner.",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          {
+            "name": "sitename",
+            "in": "path",
+            "required": false,
+            "type": "string",
+            "description": "The name of the site.",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          {
+            "$ref": "#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK response definition.",
+            "schema": {
+              "$ref": "#/definitions/SiteResource"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/CodeMessageError"
+            },
+            "description": "Error response definition."
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "CodeMessageError": {
+      "properties": {
+        "error": {
+          "type": "object",
+          "properties": {
+            "code": {
+              "type": "string",
+              "description": "The error type."
+            },
+            "message": {
+              "type": "string",
+              "description": "The error message."
+            }
+          },
+          "description": "The error details for a failed request."
+        }
+      },
+      "description": "The error body contract."
+    },
+    "SiteResource": {
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the site"
+        },
+        "properties": {
+          "type": "object",
+          "description": "The definition of a created site",
+          "properties": {
+            "siteKey": {
+              "type": "string",
+              "description": "Key for the site"
+            },
+            "siteName": {
+              "type": "string",
+              "description": "Name of the site"
+            },
+            "siteOwnerName": {
+              "type": "string",
+              "description": "Name of the site owner"
+            }
+          }
+
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/Resource"
+        }
+      ],
+      "description": "A manifest file that defines the custom resource provider resources."
+    },
+    "Resource": {
+      "properties": {
+        "id": {
+          "readOnly": true,
+          "type": "string",
+          "description": "Resource Id"
+        },
+        "name": {
+          "readOnly": true,
+          "type": "string",
+          "description": "Resource name"
+        },
+        "type": {
+          "readOnly": true,
+          "type": "string",
+          "description": "Resource type"
+        },
+        "siteName": {
+          "type": "string",
+          "description": "site name"
+        },
+        "siteOwnerName": {
+          "type": "string",
+          "description": "site owner name"
+        },
+        "tags": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Resource tags"
+        }
+      },
+      "required": [
+        "siteName",
+        "siteOwnerName"
+      ],
+      "description": "The resource definition.",
+      "x-ms-azure-resource": true
+    }
+  },
+  "parameters": {
+    "SubscriptionIdParameter": {
+      "name": "subscriptionId",
+      "in": "path",
+      "required": true,
+      "type": "string",
+      "description": "Gets subscription credentials which uniquely identify Microsoft Azure subscription. The subscription ID forms part of the URI for every service call."
+    },
+    "ApiVersionParameter": {
+      "name": "api-version",
+      "in": "query",
+      "required": true,
+      "type": "string",
+      "description": "Client Api Version."
+    }
+  }
+}
